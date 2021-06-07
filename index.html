@@ -12,26 +12,72 @@
       href="./images/favicon-32x32.png"
     />
 
-    <title>Todo app</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Josefin+Sans"
+      href=""
+    />
 
-    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-    <style>
-      .attribution {
-        font-size: 11px;
-        text-align: center;
-      }
-      .attribution a {
-        color: hsl(228, 45%, 44%);
-      }
-    </style>
+    <title>Todo app</title>
+    
+    <link 
+      rel="stylesheet"
+      type="text/css"
+      href="./src/styles.css"
+    />  
+
+    <link rel="stylesheet" 
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    Todo
+    <header id="header">
+      <h1 id='h01'>Todo</h1>
+      <svg>
+        <use href="images/icon-moon.svg#icon-moon"></use>
+        <!-- <use href="src/images/stopwatch-solid.svg#icon-clock"></use> -->
+      </svg>
+      <!-- <button id='bg-mode' class="bgmode-changer" type='button'> -->
+      </button>
+    </header>
+    <main id="main">
+      <div class="wrapper">
+        <form id="form">
+          <input
+            type="text"
+            id="task"
+            class="inputbar"
+            placeholder="Create a new todo..."
+            required
+          />
+        </form>
+        <div class="todo-card">
+          <div class="div">
+            <ul id="todo-list"></ul>
+            <div class="todocard-div">
+              <p>
+                <span id="num-of-uncompleted"></span>
+                <span id="item"></span>
+              left
+              </p>
+              <p>
+                clear completed
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="nav">
+          <a href="#">all</a>
+          <a href="#">active</a>
+          <a href="#">completed</a>
+        </div>
+        <p>Drag and drop to reorder list</p>
+      </div>
+    </main>
 
-    <!-- Add dynamic number -->
-    items left All Active Completed Clear Completed Drag and drop to reorder
-    list
-
-    <div class="attribution">Coded by <a href="#">Your Name Here</a>.</div>
+    <!-- <div class="attribution">Coded by <a href="#">Orbie Ezeilo</a>.</div> -->
+    <script src="src/script.js"></script>
   </body>
 </html>
