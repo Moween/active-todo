@@ -62,157 +62,50 @@ const handleSubmitTodos = (e) =>  {
   todosListCopy = [...todos];
   // Rest local storage
   localStorage.setItem('todosList', JSON.stringify(todos));
-  // displayTodo(todosCopy);
+  displayTodo(todosListCopy);
 }
 
-// // Creates HTML Elements
-// class CreateTodo {
-//   constructor(todo) {
-//     //Create a div element to house the task, duration, button elements
-//     this.taskWrap = document.createElement('div');  
-//     this.taskWrap.className = 'task-wrap';
-  
-//     //Create p Element
-//     const taskName = document.createElement('p');
-//     //Add textContent to the p element
-//     taskName.textContent = `${todo.task}`;
-//     if(todo.completed === true) {
-//       taskName.className = 'completed';
-//     }else {
-//       taskName.classList.remove('completed');
-//     }
-    
-//     //Create checkboxBtn
-//     const checkedBtn = document.createElement('button');
-//     checkedBtn.className = ('btn btn-default btn-xs checked-btn');
-//     checkedBtn.innerHTML = '<i class="fas fa-check"></i>';
-//     checkedBtn.setAttribute('data-id', todo.id);
-    
-//     // Create delete button
-//     const deleteBtn = document.createElement('button');
-//     deleteBtn.setAttribute("type","button");
-//     deleteBtn.className = ('btn btn-danger btn-xs delete deletebtn');
-//     deleteBtn.innerHTML = '<i class="fas fa-trash"></i>'
-//     deleteBtn.setAttribute('data-id', todo.id);
-    
-//     this.handleTickEvents = this.handleTickEvents.bind(this);
-//     this.handleDeleteTodo = this.handleDeleteTodo.bind(this);
-    
-//     // Add EventListener to  btn
-//     deleteBtn.onclick = this.handleDeleteTodo;
-//     checkedBtn.onclick = this.handleTickEvents;
-    
-//     this.taskWrap.append(taskName, checkedBtn, deleteBtn);
-//   }
-
-//   handleTickEvents = (e) => {
-//     e.preventDefault();
-//     e.stopPropagation();
-//     let todos = localStorage.getItem('myTodoList');
-//     todos = JSON.parse(todos);
-//     todos = todos.map(todo => {
-//       if(todo.id === e.currentTarget.dataset.id)  {
-//         todo.completed = (todo.completed === true  ? false : true);
-//       }
-//       return todo;
-//     });  
-//     todosCopy = [...todos];
-    
-//     // Reset local storage
-//     localStorage.setItem('myTodoList', JSON.stringify(todos));
-//     displayTodo(todosCopy);
-//   }
+class TodoElements {
+  constructor(todo) {
+    this.li = document.createElement('li');
+    this.li.className = 'list-item'
+    const label = document.createElement('label');
+    label.setAttribute('for', todo.id);
+    this.li.append(label);
+    const checkbox = document.createElement('input');
+    checkbox.setAttribute('id', todo.id);
+    checkbox.type = 'checkbox';
+    checkbox.name = 'todo';
+    checkbox.className = 'checkbox-round';
+    this.li.append(checkbox);
+    this.li.appendChild(document.createTextNode(todo.task));
+    const deletebtn = document.createElement('button');
+    deletebtn.setAttribute('data-id', todo.id)
+    deletebtn.type = "button";
+    deletebtn.textContent = 'X';
+    deletebtn.classList = 'btn btn-sm btn-default delete-btn';
+    this.li.append(deletebtn);
+  }
+}
 
 
-//   handleDeleteTodo = (e) => {
-//     e.preventDefault();
-//     e.stopPropagation();
-//     const { currentTarget: { dataset: { id: deleteItem } } } = e;
-//     let todos = localStorage.getItem('myTodoList');
-//     todos = JSON.parse(todos);
-  
-//     //Delete from local storage
-//     todos = todos.filter(todo => todo.id !== deleteItem);
-//     todosCopy = [...todos];
-  
-//     // Reset Local Storage
-//     localStorage.setItem('myTodoList', JSON.stringify(todos));
-  
-//     // Delete from DOM
-//     displayTodo(todosCopy);
-//   }
-// }
+const displayTodo = (todosArr) => {
+  const ulElem = document.querySelector('#todo-list')
+  ulElem.innerHTML = '';
+  const divContainer = document.querySelector('.div');
 
-// // Display message if no list is available
-// const displayNoTodoMessage = (e) => {
-//   const p = document.createElement('p');
-//   if(e.target.id === 'uncompleted' || e.target.id === 'completed') {
-//     if(!todosCopy.length) {
-//       p.textContent = `No task to perform. Input a task.`;
-//       p.style.margin = '10px';
-//       document.querySelector('#todo-list').append(p);
-//     } else {
-//       p.textContent = `Tick completed task.`;
-//       p.style.margin = '10px';
-//       document.querySelector('#todo-list').append(p);
-//     }
-//   }
-// }
+  if(!todosArr.length) {
+    divContainer.style.display = 'none';
+  }else {
+    divContainer.style.display = 'block';
+    todosArr.forEach(todo => {
+      const { li } = new TodoElements(todo);
+      ulElem.append(li); 
+    });
+  }    
+} 
 
-// // Display Todo
-// const displayTodo = (todosArr) => {
-//   todoList.innerHTML = '';
-//   todosArr.forEach(todo => {
-//     const { taskWrap } = new CreateTodo(todo);   
-//     document.querySelector('#todo-list').append(taskWrap);
-//   })
-// }
-
-// const filterTodos = (e) => {
-//   e.preventDefault();
-//   todoList.innerHTML = '';
-//   let filteredTodos;
-//   switch(e.target.id) {
-//     case 'all':      
-//       displayTodo(todosCopy);
-//       break;
-//     case 'completed':
-//       filteredTodos = todosCopy.filter(todosObj => todosObj.completed === true);
-//       if(filteredTodos.length) {
-//         displayTodo(filteredTodos);
-//         todoList.insertAdjacentText('afterbegin', 'Completed task');
-//       }else {
-//         displayNoTodoMessage(e); 
-//       }
-//       break;
-//     case 'uncompleted': 
-//       filteredTodos = todosCopy.filter(todosObj => !todosObj.completed);
-//       if(!filteredTodos.length) {
-//         displayNoTodoMessage(e); 
-//       }else {
-//         displayTodo(filteredTodos);
-//         todoList.insertAdjacentText('afterbegin', 'Uncompleted task');
-//       }
-//       break;
-//   } 
-// }
-
-// const displayUnCompletedTask = (e) => {
-//   filterTodos(e); 
-// }
-
-// const displayCompletedTask = (e) => {
-//   filterTodos(e);
-// }
-
-// const displayAllTask = (e) => {
-//   filterTodos(e);
-// }
-
-
-// displayTodo(todosCopy);
-// // Add Event Listener
-// bgColorIcon.addEventListener('click', toggleBgMode)
+displayTodo(todosListCopy);
 taskInput.addEventListener('click', clearInput);
 taskInput.addEventListener('change', handleSubmitTodos);
 
