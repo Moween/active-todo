@@ -20,9 +20,9 @@ const toggleBgMode = (e) => {
 
   const main = document.querySelector('#main')
   main.className = 
-    (main.className === 'lightmode-bg-color' ? 
-      'darkmode-bg-color' : 
-      'lightmode-bg-color'
+    (main.className === 'lightmode' ? 
+      'darkmode' : 
+      'lightmode'
     ); 
   const darkmodeIcon = 
     `<use href="images/icon-moon.svg#icon-moon"></use>`;
