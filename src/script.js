@@ -2,10 +2,9 @@
 const header = document.getElementById('#header');
 const bgColorIcon = document.querySelector('.bg-mode-changer');
 const taskInput = document.querySelector('#task');
-const todoList = document.querySelector('#todo-list');
-const allLink = document.querySelector('#all');
-const activeLink = document.querySelector('#active');
-const completedLink = document.querySelector('#completed');
+const ulElem = document.querySelector('#todo-list');
+const todoCard = document.querySelector('.todo-card');
+
 
 // Toggle Background
 const toggleBgMode = (e) => {
@@ -133,7 +132,6 @@ class TodoElements {
     e.preventDefault();
     e.stopPropagation();
     const { target: {dataset: { id: checkedItem } }} = e;
-    console.log(e.target.dataset.id)
     let todos = localStorage.getItem('todosList');
     todos = JSON.parse(todos);
 
@@ -147,99 +145,135 @@ class TodoElements {
     todosListCopy = [...todos];
     localStorage.setItem('todosList', JSON.stringify(todos));
     showUncompleted();
+    hideClearCompleted();
+  }
+}
+
+class linksTags {
+  constructor() {
+    this.li = document.createElement('li');
+    const divElem = document.createElement('div');
+    divElem.className = 'todocard-div';
+    const p = document.createElement('p');
+    p.className = 'item';
+    divElem.append(p);
+    const p2 = document.createElement('p');
+    p2.innerHTML = `
+    <a  
+      href="#" 
+      id='clear-completed'
+    >
+      clear completed
+    </a>`;
+    p2.onclick = this.handleClearCompleted;
+    divElem.append(p2);
+    const nav = document.createElement('div');
+    nav.className = 'nav'
+    nav.innerHTML = `
+      <a href="#" id="all">all</a>
+      <a href="#" id="active">active</a>
+      <a href="#" id="completed">completed</a>`;
+    // divElem.append(nav);
+    nav.onclick = this.handleAnchorClick;
+    nav.onclick = this.filterTodos;    
+    this.li.append(divElem);
+    this.handleClearCompleted = this.handleClearCompleted.bind(this)
+    // this.filterTodos = this.filterTodos.bind(this);
+  }
+
+  handleClearCompleted = (e) => {
+    e.preventDefault();
+    let todos = localStorage.getItem('todosList');
+    todos = JSON.parse(todos);
+  
+    todos = todos.filter(todo => todo.completed === false);
+    todosListCopy = [...todos];
+  
+    // Reset localStorage
+    localStorage.setItem('todosList', JSON.stringify(todos));  
+    displayTodo(todosListCopy);
+  }
+
+  filterTodos = (e) => {
+    e.preventDefault();
+    const msg = document.createElement('p');
+    const divContainer = document.querySelector('.div');
+
+    switch(e.target.id) {
+      case 'all':
+        displayTodo(todosListCopy);
+        break;
+      case 'active':
+        const activeTodos = todosListCopy.filter(todos => todos.completed === false);
+        // if(!activeTodos.length) {
+        //   divContainer.innerHTML = '';
+        //   msg.textContent = 'No active task.'
+        //   divContainer.append(msg);
+        //   divContainer.append(this.li);
+        //   document.querySelector('#clear-completed').style.display = 'none';
+        // }else {
+        // }
+        displayTodo(activeTodos);
+        break;
+      case 'completed':
+        const completedTodos = todosListCopy.filter(todo =>  todo.completed === true);
+        displayTodo(completedTodos);
+        break;
+      default:
+    }
   }
 }
 
 const displayTodo = (todosArr) => {
-  const ulElem = document.querySelector('#todo-list')
   ulElem.innerHTML = '';
-  const divContainer = document.querySelector('.div');
 
   if(!todosArr.length) {
-    divContainer.style.display = 'none';
+    todoCard.style.display = 'none';
   }else {
-    divContainer.style.display = 'block';
+    todoCard.style.display = 'block';
     todosArr.forEach(todo => {
       const { li } = new TodoElements(todo);
       ulElem.append(li); 
+      if(todo.completed === true) {
+        document.querySelector('.list-item').classList.add('completed');
+      }else {
+        document.querySelector('.list-item').classList.remove('completed')
+      }
     });
+    const { li } = new linksTags();
+    ulElem.append(li);
+    showUncompleted();
+    hideClearCompleted();
   } 
-  showUncompleted();
 } 
 
 const showUncompleted = () => {
-  const itemsText = document.querySelector('#item');
-  const itemsCount = document.querySelector('#num-of-uncompleted');
-  // itemsText.innerHTML = '';
+  const itemsText = document.querySelector('.item');
+  const pElem = document.querySelector('.todocard-div p');
   const numOfUncompleted = todosListCopy.filter(todo => todo.completed === false);
-  itemsCount.textContent = numOfUncompleted.length;
-  console.log( document.querySelector('.todocard-div p' ).nodes);
-  console.log(numOfUncompleted)
   if(!numOfUncompleted.length) {
-    const spanElems = document.querySelectorAll('.todocard-div p > span')
-    for(let i = 0; i < spanElems.length; i++) {
-      spanElems[i].style.display = 'none';
-    }
+    pElem.style.display = 'none';
   }else {
-    const spanElems = document.querySelectorAll('.todocard-div p > span')
-    for(let i = 0; i < spanElems.length; i++) {
-      spanElems[i].style.display = 'block';
-    }
-    itemsText.textContent = (numOfUncompleted.length === 1) ? 'item' : 'items'
-  } 
-}
-
-const filterTodos = (e) => {
-  e.preventDefault();
-  switch(e.target.id) {
-    case 'all':
-      displayTodo(todosListCopy);
-      break;
-    case 'active':
-      const activeTodos = todosListCopy.filter(todos => todos.completed === false);
-      displayTodo(activeTodos);
-      break;
-    case 'completed':
-      const completedTodos = todosListCopy.filter(todo =>  todo.completed === true);
-      displayTodo(completedTodos);
-      break;
-    default:
+    pElem.style.display = 'block';
+    itemsText.textContent = (numOfUncompleted.length === 1) ?
+    `${numOfUncompleted.length} item left`: 
+    `${numOfUncompleted.length} items left`;
   }
 }
 
-const displayActiveTodos = (e) => {
-  filterTodos(e); 
+const hideClearCompleted = () => {
+  clearCompletedBtn = document.querySelector('#clear-completed');
+  const numOfCompleted = todosListCopy.filter(todo => todo.completed === true);
+  if(!numOfCompleted.length) {
+    clearCompletedBtn.style.display = 'none' 
+  }else {
+    clearCompletedBtn.style.display = 'block';
+  }
 }
 
-const displayCompletedTodos = (e) => {
-  filterTodos(e);
-}
-
-const displayAllTodos = (e) => {
-  filterTodos(e);
-}
-
-const handleClearCompleted = (e) => {
-  e.preventDefault();
-  let todos = localStorage.getItem('todosList');
-  todos = JSON.parse(todos);
-
-  todos = todos.filter(todo => todo.completed === false);
-  todosListCopy = [...todos];
-
-  // Reset localStorage
-  localStorage.setItem('todosList', JSON.stringify(todos));
-
-  displayTodo(todosListCopy);
-}
 
 displayTodo(todosListCopy);
 bgColorIcon.addEventListener('click', toggleBgMode);
 taskInput.addEventListener('click', clearInput);
 taskInput.addEventListener('change', handleSubmitTodos);
-allLink.addEventListener('click',displayAllTodos);
-activeLink.addEventListener('click', displayActiveTodos);
-completedLink.addEventListener('click', displayCompletedTodos);
-document.querySelector('#clear-completed')
-  .addEventListener('click', handleClearCompleted);
 
