@@ -32,14 +32,19 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
+  <body class="lightmode">
     <header id="header" class="lightmode-header-bg-img">
       <h1 id='h01'>Todo</h1>
-      <svg class="bg-mode-changer">
-        <use href="images/icon-sun.svg#icon-sun"></use>
-      </svg>
+      <!-- <svg class="bg-mode-changer">
+        <use href="images/icon-moon.svg#icon-moon"></use>
+      </svg> -->
+      <img src="images/icon-moon.svg"
+        id="header-icon" 
+        alt=""
+        class="lightmode-header-bg-img"
+      />
     </header>
-    <main id="main" class="lightmode-bg-color">
+    <main id="main">
       <div class="wrapper">
         <form id="form">
           <input
@@ -53,28 +58,13 @@
         <div class="todo-card">
           <div class="div">
             <ul id="todo-list"></ul>
-            <div class="todocard-div">
-              <p>
-                <span id="num-of-uncompleted"></span>
-                <span id="item"></span>
-                <span>left</span>
-                <a 
-                  href="#"
-                  id='clear-completed'
-                >
-                  clear completed
-                </a>
-              </p>
-            </div>
           </div>
         </div>
-        <div class="nav">
-          <a href="#" id="all">all</a>
-          <a href="#" id="active">active</a>
-          <a href="#" id="completed">completed</a>
+        <!-- <div class="nav">
+          
         </div>
         <p>Drag and drop to reorder list</p>
-      </div>
+      </div> -->
     </main>
 
     <!-- <div class="attribution">Coded by <a href="#">Orbie Ezeilo</a>.</div> -->
