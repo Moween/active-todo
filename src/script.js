@@ -181,18 +181,31 @@ class linksTags {
     </a>`;
     p2.onclick = this.handleClearCompleted;
     divElem.append(p2);
+    
+    // Div Container
+    const divContainer = document.querySelector('.div')
+    let divContainerHeight = 
+      window.getComputedStyle(divContainer).getPropertyValue("height");
+    divContainerHeight = divContainerHeight.replace(/\px/, '');
+    divContainerHeight = parseInt(divContainerHeight);
+    console.log(divContainerHeight);
+
+    // Nav
     const nav = document.createElement('div');
-    nav.className = 'nav'
+    nav.className = 'nav';
+
+    // Set nav absolute from the top
+    nav.style.top = divContainerHeight + 60 + 'px';
     nav.innerHTML = `
       <a href="#" id="all">all</a>
       <a href="#" id="active">active</a>
       <a href="#" id="completed">completed</a>`;
-    // divElem.append(nav);
+    divElem.append(nav);
     nav.onclick = this.handleAnchorClick;
     nav.onclick = this.filterTodos;    
     this.li.append(divElem);
     this.handleClearCompleted = this.handleClearCompleted.bind(this)
-    // this.filterTodos = this.filterTodos.bind(this);
+    this.filterTodos = this.filterTodos.bind(this);
   }
 
   handleClearCompleted = (e) => {
