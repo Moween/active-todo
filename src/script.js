@@ -85,10 +85,14 @@ const handleSubmitTodos = (e) =>  {
 class TodoElements {
   constructor(todo) {
     this.li = document.createElement('li');
-    this.li.className = 'list-item'
+    this.li.className = 'list-item';
+
+    // Label
     const label = document.createElement('label');
     label.setAttribute('for', 'todos');
     this.li.append(label);
+
+    //Checkbox
     const checkbox = document.createElement('input');
     checkbox.setAttribute('id', 'todos');
     checkbox.type = 'checkbox';
@@ -97,7 +101,16 @@ class TodoElements {
     checkbox.onchange = this.checkItem;
     checkbox.setAttribute('data-id', todo.id);
     this.li.append(checkbox);
+
+    //li text content
     this.li.appendChild(document.createTextNode(todo.task));
+    
+    (todo.completed === true ?
+       this.li.classList.add('completed'):
+       this.li.classList.remove('completed')
+    );
+
+    // Delete Button
     const deletebtn = document.createElement('button');
     deletebtn.setAttribute('data-id', todo.id);
     deletebtn.type = "button";
@@ -144,6 +157,7 @@ class TodoElements {
 
     todosListCopy = [...todos];
     localStorage.setItem('todosList', JSON.stringify(todos));
+    displayTodo(todosListCopy);
     showUncompleted();
     hideClearCompleted();
   }
@@ -234,11 +248,6 @@ const displayTodo = (todosArr) => {
     todosArr.forEach(todo => {
       const { li } = new TodoElements(todo);
       ulElem.append(li); 
-      if(todo.completed === true) {
-        document.querySelector('.list-item').classList.add('completed');
-      }else {
-        document.querySelector('.list-item').classList.remove('completed')
-      }
     });
     const { li } = new linksTags();
     ulElem.append(li);
