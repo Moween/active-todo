@@ -32,13 +32,12 @@
       crossorigin="anonymous"
     />
   </head>
-  <body class="lightmode">
-    <header id="header" class="lightmode-header-bg-img">
+  <body>
+    <header>
       <h1 id='h01'>Todo</h1>
       <img src="images/icon-moon.svg"
         id="header-icon" 
         alt="icon_img"
-        class="lightmode-header-bg-img"
       />
     </header>
     <main id="main">
@@ -50,10 +49,11 @@
             class="inputbar"
             placeholder="Create a new todo..."
             required
+            maxlength="50"
           />
         </form>
         <div class="todo-card">
-          <div class="div">
+          <div class="todocard-div">
             <ul id="todo-list"></ul>
           </div>
         </div>
@@ -64,7 +64,12 @@
       </div> -->
     </main>
 
-    <!-- <div class="attribution">Coded by <a href="#">Orbie Ezeilo</a>.</div> -->
+    <footer class="pg-footer">
+      <div class="attribution">
+        Coded by 
+        <a href="twitter/iamMoween">Orbie Ezeilo</a>.
+      </div>
+    </footer>
     <script src="src/script.js"></script>
   </body>
 </html>
