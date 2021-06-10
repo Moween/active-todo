@@ -1,6 +1,6 @@
 // Variables
 const header = document.querySelector('header');
-const bgColorIcon = document.querySelector('#header-icon');
+const bgColorIcon = document.querySelector('.header-icon');
 const taskInput = document.querySelector('#task');
 const ulElem = document.querySelector('#todo-list');
 const todoCard = document.querySelector('.todo-card');
@@ -68,17 +68,16 @@ class TodoElements {
     // Label
     const label = document.createElement('label');
     label.setAttribute('for', 'todos');
-    this.li.append(label);
-
+    
     //Checkbox
     const checkbox = document.createElement('input');
     checkbox.setAttribute('id', 'todos');
     checkbox.type = 'checkbox';
     checkbox.name = 'todo';
-    checkbox.className = 'checkbox-round-lightmode';
     checkbox.onchange = this.checkItem;
     checkbox.setAttribute('data-id', todo.id);
     this.li.append(checkbox);
+    this.li.append(label);
 
     //li text content
     this.li.appendChild(document.createTextNode(todo.task));
@@ -124,6 +123,8 @@ class TodoElements {
   checkItem(e) {
     e.preventDefault();
     e.stopPropagation();
+    console.log(e.target);
+    console.log(e.target.dataset.id)
     const { target: {dataset: { id: checkedItem } }} = e;
     let todos = localStorage.getItem('todosList');
     todos = JSON.parse(todos);
@@ -281,17 +282,19 @@ const hideClearCompleted = () => {
 const toggleBgMode = (e) => {
   e.preventDefault();
   e.stopPropagation();
-  console.log(e.target.src)
-
-  // Change HeaderImg
-    header.classList.toggle('darkmode-header-bg-img');
-
-  // Change bg-header-icon
-  const darkModeIcon = `/images/icon-sun.svg`;
-  const lightModeIcon =  `/images/icon-moon.svg`;
-  e.target.src = 
-    (e.target.src  === lightModeIcon ? darkModeIcon : lightModeIcon);
   
+  // Change HeaderImg
+  header.classList.toggle('darkmode-header-bg-img');
+
+  // Change bg-header-icon  
+  console.log(  e.target.className)
+  if(e.target.className === 'header-icon') {
+    e.target.className = 'bg-image-darkmode';
+  }else {
+
+    e.target.className = 'header-icon';
+  }
+
   // Toggle body background color
   document.body.classList.toggle('darkmode');
 
@@ -302,29 +305,34 @@ const toggleBgMode = (e) => {
   divContainer.classList.toggle('todocard-div-darkmode');
 
 
-  const clearCompleted = document.getElementById('#clear-completed')
-  clearCompleted.style = 
-    (clearCompleted.style === 'hsl(233, 14%, 35%)') ? 
-      'hsl(233, 11%, 84%)': 
-      'hsl(233, 14%, 35%)';
+  const clearCompleted = document.getElementById('clear-completed')
+  if(clearCompleted) 
+    clearCompleted.style = 
+      (clearCompleted.style === 'hsl(233, 14%, 35%)') ? 
+        'hsl(233, 11%, 84%)': 
+        'hsl(233, 14%, 35%)';
   // Toggle checkboxes class
-  const checkboxes = document.querySelectorAll('.checkbox-round-lightmode');
-  for(let i = 0; i < checkboxes.length; i++) {
-    checkboxes[i].classList.toggle('checkbox-round-darkmode');
-  }
+  // const checkboxes = document.querySelectorAll('.checkbox-round-lightmode');
+  // for(let i = 0; i < checkboxes.length; i++) {
+    // checkboxes[i].classList.toggle('checkbox-round-darkmode');
+  // }
 
   // Toggle Deletebtn Class
   const deleteBtns = document.querySelectorAll('.delete-btn-light');
-  for(let i = 0; i < deleteBtns.length; i++) {
-    deleteBtns[i].classList.toggle('delete-btn-dark');
-  } 
+  if(deleteBtns)
+    for(let i = 0; i < deleteBtns.length; i++) {
+      deleteBtns[i].classList.toggle('delete-btn-dark');
+    } 
 
   const listItems = document.querySelectorAll('.list-item-lightmode');
-  for(let i = 0; i < listItems.length; i++) {
-    listItems[i].classList.toggle('list-item-darkmode');
-  }
+  if(listItems)
+    for(let i = 0; i < listItems.length; i++) {
+      listItems[i].classList.toggle('list-item-darkmode');
+    }
 
-  document.querySelector('.nav').classList.toggle('nav-darkmode')
+  const nav = document.querySelector('.nav');
+  if(nav)
+    nav.classList.toggle('nav-darkmode');
 }
 
 
