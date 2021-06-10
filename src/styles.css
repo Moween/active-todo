@@ -134,10 +134,10 @@ input[type="text"]::placeholder {
 }
 
 #todo-list{
-  list-style-type: none;
   margin-bottom: 0 !important;
   padding: 5px 0 0;
   text-align: left;
+  list-style-type: none;
 }
 
 .list-item-lightmode {
@@ -164,8 +164,52 @@ li:last-of-type {
   margin-bottom: 5px;
 }
 
+.checkbox-container {
+  margin: 8px;
+}
+
 input[type="checkbox"] {
-  margin: 1px 5px 0 0 !important;
+  display: none;
+}
+
+label {
+  cursor: pointer;
+  margin: 5px 15px 10px 5px;
+}
+
+label::before {
+  content: '';
+  background: url("/images/icon-check.svg") no-repeat, 
+    linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+  background-position: center;
+  background-size: contain;
+  border-radius: 50%;
+  width: 1.39em;
+  height: 1.39em;
+  position: absolute;
+  outline: none;
+  bottom: 11px;
+  left: 8px;
+  vertical-align: middle;
+  
+  transform: scale(0) rotateZ(180deg); 
+  transition: all 0.4s cubic-bezier(0.54, 0.01, 0, 1.49); 
+}
+
+input[type="checkbox"]:checked + label::before {
+  transform: scale(1) rotateZ(0deg);
+}
+
+label::after {
+  content: "";
+  border: 1px solid var(--darkGrayishBlue);
+  border-radius: 50%;
+  height: 1.5em;
+  top: 9px;
+  left: 7px;
+  margin-right: 5px;
+  position: absolute;
+  width: 1.5em;
 }
 
 .delete-btn-light {
