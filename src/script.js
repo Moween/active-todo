@@ -1,10 +1,10 @@
 // Variables
-const header = document.getElementById('#header');
+const header = document.querySelector('header');
 const bgColorIcon = document.querySelector('#header-icon');
 const taskInput = document.querySelector('#task');
 const ulElem = document.querySelector('#todo-list');
 const todoCard = document.querySelector('.todo-card');
-const divContainer = document.querySelector('.todocard-div-lightmode');
+const divContainer = document.querySelector('.todocard-div');
 
 
 
@@ -84,16 +84,19 @@ class TodoElements {
     this.li.appendChild(document.createTextNode(todo.task));
     
     (todo.completed === true ?
-       this.li.classList.add('completed-lightmode'):
-       this.li.classList.remove('completed-lightmode')
+       this.li.classList.add('completed'):
+       this.li.classList.remove('completed')
     );
 
     // Delete Button
     const deletebtn = document.createElement('button');
-    deletebtn.setAttribute('data-id', todo.id);
     deletebtn.type = "button";
-    deletebtn.innerHTML = `<img src="/images/icon-cross.svg" alt="delete-icon" />`;
-    deletebtn.classList = 'delete-btn-light';
+    deletebtn.innerHTML = `
+      <img data-id='${todo.id}' style="width:13px" 
+        src="/images/icon-cross.svg" 
+        alt="delete-icon" 
+      />`;
+    deletebtn.classList = 'btn btn-sm delete-btn-light';
     deletebtn.onclick = this.deleteItem;
     this.li.append(deletebtn);
     this.deleteItem = this.deleteItem.bind(this);
@@ -103,7 +106,6 @@ class TodoElements {
   deleteItem(e) {
     e.preventDefault();
     e.stopPropagation();
-    console.log(e.target.dataset.id)
     const { target: { dataset: { id: deleteItemId } } } = e;
     let todos = localStorage.getItem('todosList');
     todos = JSON.parse(todos);
@@ -201,25 +203,31 @@ class linksTags {
   filterTodos = (e) => {
     e.preventDefault();
     const msg = document.createElement('p');
-
     switch(e.target.id) {
       case 'all':
         displayTodo(todosListCopy);
         break;
-      case 'active':
-        const activeTodos = todosListCopy.filter(todos => todos.completed === false);
-        // if(!activeTodos.length) {
-        //   divContainer.innerHTML = '';
-        //   msg.textContent = 'No active task.'
-        //   divContainer.append(msg);
-        //   divContainer.append(this.li);
-        //   document.querySelector('#clear-completed').style.display = 'none';
-        // }else {
-        // }
+        case 'active':
+          const activeTodos = todosListCopy.filter(todos => todos.completed === false);
+          if(!activeTodos.length) {
+            ulElem.innerHTML = '';
+            msg.textContent = 'No active task.'
+            msg.style.textAlign = 'center';
+          ulElem.append(msg);
+          document.querySelector('#clear-completed').style.display = 'none';
+        }
         displayTodo(activeTodos);
         break;
       case 'completed':
         const completedTodos = todosListCopy.filter(todo =>  todo.completed === true);
+        if(!completedTodos.length) {
+          ulElem.innerHTML = '';
+          msg.textContent = '';
+          msg.textContent = 'No completed task.'
+          msg.style.textAlign = 'center';
+          ulElem.append(msg);
+          document.querySelector('#clear-completed').style.display = 'none';
+        }
         displayTodo(completedTodos);
         break;
       default:
@@ -273,28 +281,32 @@ const hideClearCompleted = () => {
 const toggleBgMode = (e) => {
   e.preventDefault();
   e.stopPropagation();
-  console.log(e.target.src);
+  console.log(e.target.src)
 
   // Change HeaderImg
-  document.querySelector('#header')
-    .classList.toggle('darkmode-header-bg-img');
-  // Change bg-icon
-  const headerIcon = document.querySelector('#header-icon');
+    header.classList.toggle('darkmode-header-bg-img');
+
+  // Change bg-header-icon
   const darkModeIcon = `/images/icon-sun.svg`;
   const lightModeIcon =  `/images/icon-moon.svg`;
   e.target.src = 
-    (e.target.src  === darkModeIcon) ? lightModeIcon : darkModeIcon;
+    (e.target.src  === lightModeIcon ? darkModeIcon : lightModeIcon);
   
   // Toggle body background color
   document.body.classList.toggle('darkmode');
 
   // Toggle Inputbar class
-  document.querySelector('.inputbar').classList
-    .toggle('inputbar-darkmode');
+  taskInput.classList.toggle('inputbar-darkmode');
 
   //Change div container
   divContainer.classList.toggle('todocard-div-darkmode');
 
+
+  const clearCompleted = document.getElementById('#clear-completed')
+  clearCompleted.style = 
+    (clearCompleted.style === 'hsl(233, 14%, 35%)') ? 
+      'hsl(233, 11%, 84%)': 
+      'hsl(233, 14%, 35%)';
   // Toggle checkboxes class
   const checkboxes = document.querySelectorAll('.checkbox-round-lightmode');
   for(let i = 0; i < checkboxes.length; i++) {
@@ -310,8 +322,9 @@ const toggleBgMode = (e) => {
   const listItems = document.querySelectorAll('.list-item-lightmode');
   for(let i = 0; i < listItems.length; i++) {
     listItems[i].classList.toggle('list-item-darkmode');
-    listItems[i].classList.toggle('completed-darkmode');
   }
+
+  document.querySelector('.nav').classList.toggle('nav-darkmode')
 }
 
 
