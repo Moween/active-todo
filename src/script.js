@@ -1,39 +1,11 @@
 // Variables
 const header = document.getElementById('#header');
-const bgColorIcon = document.querySelector('.bg-mode-changer');
+const bgColorIcon = document.querySelector('#header-icon');
 const taskInput = document.querySelector('#task');
 const ulElem = document.querySelector('#todo-list');
 const todoCard = document.querySelector('.todo-card');
+const divContainer = document.querySelector('.todocard-div-lightmode');
 
-
-// Toggle Background
-const toggleBgMode = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  const header = document.querySelector('#header');
-  header.className = 
-    (header.className === 'lightmode-header-bg-img' ? 
-      'darkmode-header-bg-img' : 
-      'lightmode-header-bg-img'
-    );
-
-  const main = document.querySelector('#main')
-  main.className = 
-    (main.className === 'lightmode' ? 
-      'darkmode' : 
-      'lightmode'
-    ); 
-  const darkmodeIcon = 
-    `<use href="images/icon-moon.svg#icon-moon"></use>`;
-  const lightmodeIcon = 
-    `<use href="images/icon-sun.svg#icon-sun"></use>;`;
-
-    e.target.innerHTML = 
-      (e.target.innerHTML  === darkmodeIcon ? 
-        lightmodeIcon :
-         darkmodeIcon    
-      )
-}
 
 
 // Global todos: A copy of our local storage data
@@ -66,6 +38,12 @@ const handleSubmitTodos = (e) =>  {
 
   let newTodo = {};
   newTodo.task = e.target.value;
+  if(typeof newTodo.task === 'string') {
+    newTodo.task = newTodo.task
+      .slice(0, 1).toUpperCase() + newTodo.task.slice(1);
+  }else {
+    return newTodo.task;
+  }
   newTodo.id = Date.now().toString();
 
   // Instantiate a todo object
@@ -85,7 +63,7 @@ const handleSubmitTodos = (e) =>  {
 class TodoElements {
   constructor(todo) {
     this.li = document.createElement('li');
-    this.li.className = 'list-item';
+    this.li.classList = 'list-item-lightmode';
 
     // Label
     const label = document.createElement('label');
@@ -97,7 +75,7 @@ class TodoElements {
     checkbox.setAttribute('id', 'todos');
     checkbox.type = 'checkbox';
     checkbox.name = 'todo';
-    checkbox.className = 'checkbox-round';
+    checkbox.className = 'checkbox-round-lightmode';
     checkbox.onchange = this.checkItem;
     checkbox.setAttribute('data-id', todo.id);
     this.li.append(checkbox);
@@ -106,16 +84,16 @@ class TodoElements {
     this.li.appendChild(document.createTextNode(todo.task));
     
     (todo.completed === true ?
-       this.li.classList.add('completed'):
-       this.li.classList.remove('completed')
+       this.li.classList.add('completed-lightmode'):
+       this.li.classList.remove('completed-lightmode')
     );
 
     // Delete Button
     const deletebtn = document.createElement('button');
     deletebtn.setAttribute('data-id', todo.id);
     deletebtn.type = "button";
-    deletebtn.textContent = 'X';
-    deletebtn.classList = 'btn btn-sm btn-default delete-btn';
+    deletebtn.innerHTML = `<img src="/images/icon-cross.svg" alt="delete-icon" />`;
+    deletebtn.classList = 'delete-btn-light';
     deletebtn.onclick = this.deleteItem;
     this.li.append(deletebtn);
     this.deleteItem = this.deleteItem.bind(this);
@@ -167,7 +145,7 @@ class linksTags {
   constructor() {
     this.li = document.createElement('li');
     const divElem = document.createElement('div');
-    divElem.className = 'todocard-div';
+    divElem.className = 'inner-todocard-div';
     const p = document.createElement('p');
     p.className = 'item';
     divElem.append(p);
@@ -183,7 +161,6 @@ class linksTags {
     divElem.append(p2);
     
     // Div Container
-    const divContainer = document.querySelector('.div')
     let divContainerHeight = 
       window.getComputedStyle(divContainer).getPropertyValue("height");
     divContainerHeight = divContainerHeight.replace(/\px/, '');
@@ -224,7 +201,6 @@ class linksTags {
   filterTodos = (e) => {
     e.preventDefault();
     const msg = document.createElement('p');
-    const divContainer = document.querySelector('.div');
 
     switch(e.target.id) {
       case 'all':
@@ -271,7 +247,7 @@ const displayTodo = (todosArr) => {
 
 const showUncompleted = () => {
   const itemsText = document.querySelector('.item');
-  const pElem = document.querySelector('.todocard-div p');
+  const pElem = document.querySelector('.inner-todocard-div p');
   const numOfUncompleted = todosListCopy.filter(todo => todo.completed === false);
   if(!numOfUncompleted.length) {
     pElem.style.display = 'none';
@@ -290,6 +266,51 @@ const hideClearCompleted = () => {
     clearCompletedBtn.style.display = 'none' 
   }else {
     clearCompletedBtn.style.display = 'block';
+  }
+}
+
+// Toggle Background
+const toggleBgMode = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  console.log(e.target.src);
+
+  // Change HeaderImg
+  document.querySelector('#header')
+    .classList.toggle('darkmode-header-bg-img');
+  // Change bg-icon
+  const headerIcon = document.querySelector('#header-icon');
+  const darkModeIcon = `/images/icon-sun.svg`;
+  const lightModeIcon =  `/images/icon-moon.svg`;
+  e.target.src = 
+    (e.target.src  === darkModeIcon) ? lightModeIcon : darkModeIcon;
+  
+  // Toggle body background color
+  document.body.classList.toggle('darkmode');
+
+  // Toggle Inputbar class
+  document.querySelector('.inputbar').classList
+    .toggle('inputbar-darkmode');
+
+  //Change div container
+  divContainer.classList.toggle('todocard-div-darkmode');
+
+  // Toggle checkboxes class
+  const checkboxes = document.querySelectorAll('.checkbox-round-lightmode');
+  for(let i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].classList.toggle('checkbox-round-darkmode');
+  }
+
+  // Toggle Deletebtn Class
+  const deleteBtns = document.querySelectorAll('.delete-btn-light');
+  for(let i = 0; i < deleteBtns.length; i++) {
+    deleteBtns[i].classList.toggle('delete-btn-dark');
+  } 
+
+  const listItems = document.querySelectorAll('.list-item-lightmode');
+  for(let i = 0; i < listItems.length; i++) {
+    listItems[i].classList.toggle('list-item-darkmode');
+    listItems[i].classList.toggle('completed-darkmode');
   }
 }
 
