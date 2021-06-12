@@ -1,4 +1,3 @@
-@import "mediaquery.css";
 :root {
   box-sizing: border-box;
   margin: 0;
@@ -35,30 +34,53 @@ body {
 header {
   background-image: url('/images/bg-mobile-light.jpg');
   height: 200px;
-  padding: 0 20px;
+  padding: 10px 20px;
   width: 100%;
-}
-
-#h01 {
-  color: var(--veryLightGrayishBlue) !important;
-  float: left;
-  font-weight: 700 !important;
-  letter-spacing: 5px;
-  margin-top: 30px;
-  margin-bottom: 0;
-  text-transform: uppercase;
-}
-
-#header-icon {
-  display: block;
-  float: right;
-  margin-top: 40px;
-  height: 17px;
-  width: 17px;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .darkmode-header-bg-img {
   background-image: url('/images/bg-mobile-dark.jpg');
+}
+
+#h01 {
+  align-self: flex-start;
+  color: var(--veryLightGrayishBlue) !important;
+  font-weight: 700 !important;
+  letter-spacing: 5px;
+  height: 50px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.header-icon {
+  align-self: flex-start;
+  background-image: url("/images/icon-moon.svg"); 
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  margin-top: 35px;
+  height: 20px;
+  outline: none;
+  width: 20px;
+}
+
+.bg-image-darkmode {
+  background-image: url("/images/icon-sun.svg"); 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  align-self: flex-start;
+  margin-top: 35px;
+  height: 20px;
+  width: 20px;
 }
 
 .darkmode {
@@ -96,6 +118,11 @@ header {
   background-color: var(--veryDarkDesaturatedBlue);
   border: 1px solid var(--veryDarkDesaturatedBlue);
   color: var(--lightGrayishBlue);
+}
+
+.inputbar-darkmode:focus {
+  background-color: var(--veryDarkDesaturatedBlue);
+  border: 1px solid var(--veryDarkDesaturatedBlue);
 }
 
 input[type="text"]::placeholder {
@@ -191,7 +218,7 @@ label::before {
   bottom: 11px;
   left: 8px;
   vertical-align: middle;
-  
+
   transform: scale(0) rotateZ(180deg); 
   transition: all 0.4s cubic-bezier(0.54, 0.01, 0, 1.49); 
 }
@@ -253,11 +280,8 @@ label::after {
   padding: 5px 0;
   text-transform:  capitalize;
   color: var(--veryDarkGrayishBlue);
-  /* background-color:  var(--veryDarkDesaturatedBlue); */
   font-weight: 700;
 }
-
-.inner-todocard-div p
 
 #clear-completed {
   text-decoration: none;
@@ -267,7 +291,7 @@ label::after {
 #clear-completed:hover {
   --lightGrayishBlue: var(--veryLightGrayishBlue);
   text-decoration: none;
-  color:  var(--lightGrayishBlue);
+  color:  var(--brightBlue);
 }
 
 .completed {
@@ -276,36 +300,184 @@ label::after {
 }
 
 .nav {
+  background-color: hsl(0, 0%, 98%);
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   display: flex;
   justify-content: center;
+  color: var(--veryDarkGrayishBlue);
+  padding: 10px;
   position: absolute;
   width: 100%;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  background-color: hsl(0, 0%, 98%);
 }
 
 .nav-darkmode {
   background-color: var(--veryDarkDesaturatedBlue);
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  position: absolute;
+  width: 100%;
 }
 
 .nav a {
   color: var(--lightGray);
-  margin: 5px;
   font-weight: 700;
+  margin: 5px;
   text-decoration: none;
   text-transform: capitalize;
 }
 
 .nav a:hover {
-  text-decoration: none;
   color: var(--brightBlue);
+  text-decoration: none;
 }
 
 .pg-footer {
-  position: absolute;
   bottom: 0;
-  width: 100%;
+  position: absolute;
   text-align: center;
+  width: 100%;
+}
+
+
+@media only screen and (min-width: 376px) and (max-width: 786px) {
+  header {
+    background-image: url('/images/bg-desktop-light.jpg');
+    justify-content: space-around;
+    height: 225px;
+  }
+  
+  .darkmode-header-bg-img {
+    background-image: url('/images/bg-desktop-dark.jpg');
+  }
+
+  #h01 {  
+    width: 45%;  
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    align-self: flex-start;
+  }
+  
+  .header-icon {
+    align-self: flex-start;
+    background-image: url("/images/icon-moon.svg"); 
+    height: 20px;
+    margin-top: 35px;
+    width: 20px;
+  }
+
+  .bg-image-darkmode {
+    background-image: url("/images/icon-sun.svg"); 
+  }
+
+  .wrapper {
+    margin: 0 auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 70%;
+  }
+
+  #form {
+    right: 15%;
+    width: 70%;
+  }
+
+  .todocard-div {
+    top: 170px;
+    right: 15%;
+    width: 70%;
+  }
+  
+  .todocard-div-darkmode {
+    right: 15%;
+    width: 70%;
+  }
+  
+  .item {
+    width: 20%;
+  }
+} 
+
+/* Media Queries For Desktop */
+@media only screen and (min-width: 1024px) {
+  header {
+    background-image: url('/images/bg-desktop-light.jpg');
+    justify-content: space-evenly;
+  }
+  
+  .darkmode-header-bg-img {
+    background-image: url('/images/bg-desktop-dark.jpg');
+  }  
+
+  .header-icon {
+    background-image: url("/images/icon-moon.svg"); 
+  }
+
+  .bg-image-darkmode {
+    background-image: url("/images/icon-sun.svg"); 
+  }
+
+  .wrapper {
+    margin-left: 25px;
+    margin-right: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 40%;
+  }
+
+  #form {
+    right: 30%;
+    width: 40%;
+  }
+
+  .todocard-div {
+    top: 170px;
+    right: 30%;
+    width: 40%;
+  }
+  
+  .todocard-div-darkmode {
+    right: 30%;
+    width: 40%;
+  }
+    
+  .inner-todocard-div {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+  }
+  
+  .item {
+    width: 20%;
+  }
+  
+  .inner-todocard-div p {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px 0;
+  }
+  
+  .nav {
+    border-radius: none;
+    box-shadow: none;
+    position: static;
+    padding: 5px 0;
+    width: 40%
+  }
+  
+  .nav-darkmode {
+    border-radius: 5px;
+    box-shadow: none;
+    position: static;
+    width: 40%;
+  }
+  
+  .nav a {
+    margin: 0 5px 5px;
+  }
+   
 }
