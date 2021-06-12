@@ -92,7 +92,7 @@ class TodoElements {
     deletebtn.type = "button";
     deletebtn.innerHTML = `
       <img data-id='${todo.id}' style="width:13px" 
-        src="/images/icon-cross.svg" 
+        src="./images/icon-cross.svg" 
         alt="delete-icon" 
       />`;
     deletebtn.classList = 'btn btn-sm delete-btn-light';
