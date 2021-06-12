@@ -24,7 +24,7 @@ const clearInput = (e) => {
   document.querySelector(`#${e.target.id}`).value = '';
 }
 
-class ToDo {
+class TodoObj {
   constructor(newTodo) {
     this.task = newTodo.task;
     this.id = newTodo.id;
@@ -47,7 +47,7 @@ const handleSubmitTodos = (e) =>  {
   newTodo.id = Date.now().toString();
 
   // Instantiate a todo object
-  const myTodo = new ToDo(newTodo);
+  const myTodo = new TodoObj(newTodo);
   // Get 'todos arr' from local storage
   let todos = localStorage.getItem('todosList');
   todos = JSON.parse(todos);
@@ -60,7 +60,7 @@ const handleSubmitTodos = (e) =>  {
   displayTodo(todosListCopy);
 }
 
-class TodoElements {
+class CreateTodo {
   constructor(todo) {
     this.li = document.createElement('li');
     this.li.classList = 'list-item-lightmode';
@@ -82,7 +82,7 @@ class TodoElements {
     //li text content
     this.li.appendChild(document.createTextNode(todo.task));
     
-    todo.completed === true ?
+    todo.completed ?
        this.li.classList.add('completed'):
        this.li.classList.remove('completed')
 
@@ -143,7 +143,7 @@ class TodoElements {
   }
 }
 
-class linksTags {
+class TodoLink {
   constructor() {
     this.li = document.createElement('li');
     const divElem = document.createElement('div');
@@ -250,10 +250,10 @@ const displayTodo = (todosArr) => {
   }else {
     todoCard.style.display = 'block';
     todosArr.forEach(todo => {
-      const { li } = new TodoElements(todo);
+      const { li } = new CreateTodo(todo);
       ulElem.append(li); 
     });
-    const { li } = new linksTags();
+    const { li } = new TodoLink();
     ulElem.append(li);
     showUncompleted();
     hideClearCompleted();
