@@ -32,7 +32,7 @@ body {
 }
 
 header {
-  background-image: url('/images/bg-mobile-light.jpg');
+  background-image: url('./images/bg-mobile-light.jpg');
   height: 200px;
   padding: 10px 20px;
   width: 100%;
@@ -42,7 +42,7 @@ header {
 }
 
 .darkmode-header-bg-img {
-  background-image: url('/images/bg-mobile-dark.jpg');
+  background-image: url('./images/bg-mobile-dark.jpg');
 }
 
 #h01 {
@@ -59,7 +59,7 @@ header {
 
 .header-icon {
   align-self: flex-start;
-  background-image: url("/images/icon-moon.svg"); 
+  background-image: url("./images/icon-moon.svg"); 
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -72,7 +72,7 @@ header {
 }
 
 .bg-image-darkmode {
-  background-image: url("/images/icon-sun.svg"); 
+  background-image: url("./images/icon-sun.svg"); 
   background-size: contain;
   background-repeat: no-repeat;
   background-color: transparent;
@@ -206,7 +206,7 @@ label {
 
 label::before {
   content: '';
-  background: url("/images/icon-check.svg") no-repeat, 
+  background: url("./images/icon-check.svg") no-repeat, 
     linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
   background-position: center;
   background-size: contain;
@@ -345,13 +345,13 @@ label::after {
 
 @media only screen and (min-width: 376px) and (max-width: 786px) {
   header {
-    background-image: url('/images/bg-desktop-light.jpg');
+    background-image: url('./images/bg-desktop-light.jpg');
     justify-content: space-around;
     height: 225px;
   }
   
   .darkmode-header-bg-img {
-    background-image: url('/images/bg-desktop-dark.jpg');
+    background-image: url('./images/bg-desktop-dark.jpg');
   }
 
   #h01 {  
@@ -364,14 +364,14 @@ label::after {
   
   .header-icon {
     align-self: flex-start;
-    background-image: url("/images/icon-moon.svg"); 
+    background-image: url("./images/icon-moon.svg"); 
     height: 20px;
     margin-top: 35px;
     width: 20px;
   }
 
   .bg-image-darkmode {
-    background-image: url("/images/icon-sun.svg"); 
+    background-image: url("./images/icon-sun.svg"); 
   }
 
   .wrapper {
@@ -405,20 +405,20 @@ label::after {
 /* Media Queries For Desktop */
 @media only screen and (min-width: 1024px) {
   header {
-    background-image: url('/images/bg-desktop-light.jpg');
+    background-image: url('./images/bg-desktop-light.jpg');
     justify-content: space-evenly;
   }
   
   .darkmode-header-bg-img {
-    background-image: url('/images/bg-desktop-dark.jpg');
+    background-image: url('./images/bg-desktop-dark.jpg');
   }  
 
   .header-icon {
-    background-image: url("/images/icon-moon.svg"); 
+    background-image: url("./images/icon-moon.svg"); 
   }
 
   .bg-image-darkmode {
-    background-image: url("/images/icon-sun.svg"); 
+    background-image: url("./images/icon-sun.svg"); 
   }
 
   .wrapper {
