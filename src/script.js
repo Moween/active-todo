@@ -152,16 +152,16 @@ class linksTags {
     const p = document.createElement('p');
     p.className = 'item';
     divElem.append(p);
-    const p2 = document.createElement('p');
-    p2.innerHTML = `
+    const paragrph2 = document.createElement('p');
+    paragrph2.innerHTML = `
     <a  
       href="#" 
       id='clear-completed'
     >
       clear completed
     </a>`;
-    p2.onclick = this.handleClearCompleted;
-    divElem.append(p2);
+    paragrph2.onclick = this.handleClearCompleted;
+    divElem.append(paragrph2);
     
     // Div Container
     let divContainerHeight = 
@@ -180,7 +180,14 @@ class linksTags {
       <a href="#" id="all">all</a>
       <a href="#" id="active">active</a>
       <a href="#" id="completed">completed</a>`;
-    divElem.append(nav);
+
+    // Displaying nav for media query
+    var displayNav = window.matchMedia("(min-width: 1024px)");
+    if(displayNav.matches) {
+      divElem.insertBefore(nav, paragrph2);
+    }else {
+      divElem.append(nav);
+    }
     nav.onclick = this.handleAnchorClick;
     nav.onclick = this.filterTodos;    
     this.li.append(divElem);
@@ -287,11 +294,9 @@ const toggleBgMode = (e) => {
   header.classList.toggle('darkmode-header-bg-img');
 
   // Change bg-header-icon  
-  console.log(  e.target.className)
   if(e.target.className === 'header-icon') {
     e.target.className = 'bg-image-darkmode';
   }else {
-
     e.target.className = 'header-icon';
   }
 
@@ -317,6 +322,9 @@ const toggleBgMode = (e) => {
     // checkboxes[i].classList.toggle('checkbox-round-darkmode');
   // }
 
+  const innerDiv = document.querySelector('.inner-todocard-div');
+  innerDiv.classList.toggle('inner-todocard-div-darkmode');
+
   // Toggle Deletebtn Class
   const deleteBtns = document.querySelectorAll('.delete-btn-light');
   if(deleteBtns)
@@ -332,7 +340,8 @@ const toggleBgMode = (e) => {
 
   const nav = document.querySelector('.nav');
   if(nav)
-    nav.classList.toggle('nav-darkmode');
+    nav.classList.toggle('nav-darkmode'); 
+  
 }
 
 
