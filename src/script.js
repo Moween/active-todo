@@ -63,7 +63,7 @@ const handleSubmitTodos = (e) =>  {
 class CreateTodo {
   constructor(todo) {
     this.li = document.createElement('li');
-    this.li.classList = 'list-item-lightmode';
+    this.li.classList = 'list-item';
 
     // Label
     const label = document.createElement('label');
@@ -80,11 +80,14 @@ class CreateTodo {
     this.li.append(label);
 
     //li text content
-    this.li.appendChild(document.createTextNode(todo.task));
+    const paragrph = document.createElement('p');
+    paragrph.textContent = todo.task;
+    paragrph.style.display = 'inline-block'
+    this.li.appendChild(paragrph);
     
     todo.completed ?
-       this.li.classList.add('completed'):
-       this.li.classList.remove('completed')
+       paragrph.classList.add('completed'):
+       paragrph.classList.remove('completed')
 
     // Delete Button
     const deletebtn = document.createElement('button');
@@ -331,7 +334,7 @@ const toggleBgMode = (e) => {
       deleteBtns[i].classList.toggle('delete-btn-dark');
     } 
 
-  const listItems = document.querySelectorAll('.list-item-lightmode');
+  const listItems = document.querySelectorAll('.list-item');
   if(listItems)
     for(let i = 0; i < listItems.length; i++) {
       listItems[i].classList.toggle('list-item-darkmode');
