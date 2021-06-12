@@ -74,7 +74,7 @@ class TodoElements {
     checkbox.setAttribute('id', 'todos');
     checkbox.type = 'checkbox';
     checkbox.name = 'todo';
-    checkbox.onchange = this.checkItem;
+    checkbox.onchange = this.handleCheckItem;
     checkbox.setAttribute('data-id', todo.id);
     this.li.append(checkbox);
     this.li.append(label);
@@ -82,27 +82,26 @@ class TodoElements {
     //li text content
     this.li.appendChild(document.createTextNode(todo.task));
     
-    (todo.completed === true ?
+    todo.completed === true ?
        this.li.classList.add('completed'):
        this.li.classList.remove('completed')
-    );
 
     // Delete Button
     const deletebtn = document.createElement('button');
     deletebtn.type = "button";
     deletebtn.innerHTML = `
       <img data-id='${todo.id}' style="width:13px" 
-        src="./images/icon-cross.svg" 
+        src="images/icon-cross.svg" 
         alt="delete-icon" 
       />`;
     deletebtn.classList = 'btn btn-sm delete-btn-light';
-    deletebtn.onclick = this.deleteItem;
+    deletebtn.onclick = this.handleDeleteItem;
     this.li.append(deletebtn);
-    this.deleteItem = this.deleteItem.bind(this);
-    this.checkItem = this.checkItem.bind(this);
+    this.handleDeleteItem = this.handleDeleteItem.bind(this);
+    this.handleCheckItem = this.handleCheckItem.bind(this);
   }
 
-  deleteItem(e) {
+  handleDeleteItem(e) {
     e.preventDefault();
     e.stopPropagation();
     const { target: { dataset: { id: deleteItemId } } } = e;
@@ -120,7 +119,7 @@ class TodoElements {
     displayTodo(todosListCopy);
   }
 
-  checkItem(e) {
+  handleCheckItem(e) {
     e.preventDefault();
     e.stopPropagation();
     console.log(e.target);
