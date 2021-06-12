@@ -1,8 +1,0 @@
-/* Media Query for Desktop */
-@import 'styles.css';
-
-@media screen and (max-width: 1440px){
-  body {
-    background-color: greenyellow;
-  }
-}
