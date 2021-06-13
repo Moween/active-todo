@@ -67,27 +67,32 @@ class CreateTodo {
 
     // Label
     const label = document.createElement('label');
-    label.setAttribute('for', 'todos');
+    label.setAttribute('for', todo.id);
     
     //Checkbox
     const checkbox = document.createElement('input');
-    checkbox.setAttribute('id', 'todos');
+    checkbox.setAttribute('id', todo.id);
     checkbox.type = 'checkbox';
     checkbox.name = 'todo';
     checkbox.onchange = this.handleCheckItem;
     checkbox.setAttribute('data-id', todo.id);
-    this.li.append(checkbox);
-    this.li.append(label);
-
+    
     //li text content
     const paragrph = document.createElement('p');
     paragrph.textContent = todo.task;
     paragrph.style.display = 'inline-block'
-    this.li.appendChild(paragrph);
+    paragrph.style.marginLeft = '15px';
+    label.appendChild(paragrph);
+    this.li.append(checkbox);
+    this.li.append(label);
     
-    todo.completed ?
-       paragrph.classList.add('completed'):
-       paragrph.classList.remove('completed')
+    if (todo.completed) {
+      paragrph.classList.add('completed');
+      checkbox.checked = true;
+    }else {
+      paragrph.classList.remove('completed');
+      checkbox.checked = false;
+    }
 
     // Delete Button
     const deletebtn = document.createElement('button');
@@ -278,10 +283,10 @@ const showUncompleted = () => {
 }
 
 const hideClearCompleted = () => {
-  clearCompletedBtn = document.querySelector('#clear-completed');
+  clearCompletedBtn = document.querySelector('.inner-todocard-div p:last-of-type');
   const numOfCompleted = todosListCopy.filter(todo => todo.completed === true);
   if(!numOfCompleted.length) {
-    clearCompletedBtn.style.display = 'none' 
+    clearCompletedBtn.style.display = 'none'; 
   }else {
     clearCompletedBtn.style.display = 'block';
   }
