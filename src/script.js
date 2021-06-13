@@ -130,8 +130,6 @@ class CreateTodo {
   handleCheckItem(e) {
     e.preventDefault();
     e.stopPropagation();
-    console.log(e.target);
-    console.log(e.target.dataset.id)
     const { target: {dataset: { id: checkedItem } }} = e;
     let todos = localStorage.getItem('todosList');
     todos = JSON.parse(todos);
@@ -175,7 +173,6 @@ class TodoLink {
       window.getComputedStyle(divContainer).getPropertyValue("height");
     divContainerHeight = divContainerHeight.replace(/\px/, '');
     divContainerHeight = parseInt(divContainerHeight);
-    console.log(divContainerHeight);
 
     // Nav
     const nav = document.createElement('div');
