@@ -105,8 +105,19 @@ class CreateTodo {
     deletebtn.classList = 'btn btn-sm delete-btn-light';
     deletebtn.onclick = this.handleDeleteItem;
     this.li.append(deletebtn);
+
+    // Set the li to draggable
+    this.li.draggable = true;
+    
+    // Drag Event Listener
+    this.li.ondragstart = this.handleDragItem;
+    this.li.ondrop = this.handleDropItem;
+    this.li.ondragover = this.handleDragOverItem;
     this.handleDeleteItem = this.handleDeleteItem.bind(this);
+    this.handleDropItem = this.handleDropItem.bind(this);
+    this.handleDragOverItem = this.handleDragOverItem.bind(this);
     this.handleCheckItem = this.handleCheckItem.bind(this);
+    this.handleDragItem = this.handleDragItem.bind(this);
   }
 
   handleDeleteItem(e) {
@@ -147,6 +158,21 @@ class CreateTodo {
     showUncompleted();
     hideClearCompleted();
   }
+
+  handleDragItem(e) {
+    e.dataTransfer.setData("text/html", e.target.outerHTML);
+  }
+
+  handleDropItem(e) {
+    e.preventDefault();
+    const data = e.dataTransfer.getData('text/html');
+    e.target.append(document.getElementById(data));
+  }
+
+  handleDragOverItem(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move"
+  }
 }
 
 class TodoLink {
@@ -167,19 +193,12 @@ class TodoLink {
     </a>`;
     paragrph2.onclick = this.handleClearCompleted;
     divElem.append(paragrph2);
-    
-    // Div Container
-    let divContainerHeight = 
-      window.getComputedStyle(divContainer).getPropertyValue("height");
-    divContainerHeight = divContainerHeight.replace(/\px/, '');
-    divContainerHeight = parseInt(divContainerHeight);
-
     // Nav
     const nav = document.createElement('div');
     nav.className = 'nav';
 
     // Set nav absolute from the top
-    nav.style.top = divContainerHeight + 60 + 'px';
+    nav.style.top = getComputedHeight(60);
     nav.innerHTML = `
       <a href="#" id="all">all</a>
       <a href="#" id="active">active</a>
@@ -225,10 +244,12 @@ class TodoLink {
             ulElem.innerHTML = '';
             msg.textContent = 'No active task.'
             msg.style.textAlign = 'center';
-          ulElem.append(msg);
-          document.querySelector('#clear-completed').style.display = 'none';
+            ulElem.append(msg);
+            e.currentTarget.style.top = getComputedHeight(20);
+            ulElem.append(e.currentTarget);
+        }else {
+          displayTodo(activeTodos);
         }
-        displayTodo(activeTodos);
         break;
       case 'completed':
         const completedTodos = todosListCopy.filter(todo =>  todo.completed === true);
@@ -238,9 +259,11 @@ class TodoLink {
           msg.textContent = 'No completed task.'
           msg.style.textAlign = 'center';
           ulElem.append(msg);
-          document.querySelector('#clear-completed').style.display = 'none';
+          e.currentTarget.style.top = getComputedHeight(20);
+          ulElem.append(e.currentTarget);
+        }else {
+          displayTodo(completedTodos);
         }
-        displayTodo(completedTodos);
         break;
       default:
     }
@@ -287,6 +310,15 @@ const hideClearCompleted = () => {
   }else {
     clearCompletedBtn.style.display = 'block';
   }
+}
+
+// Div Container
+const getComputedHeight = (num) => {
+  let divContainerHeight = 
+    window.getComputedStyle(divContainer).getPropertyValue("height");
+  divContainerHeight = divContainerHeight.replace(/\px/, '');
+  divContainerHeight = parseInt(divContainerHeight);
+  return divContainerHeight + num + 'px';
 }
 
 // Toggle Background
