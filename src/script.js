@@ -79,6 +79,7 @@ class CreateTodo {
     
     //li text content
     const paragrph = document.createElement('p');
+    paragrph.className = 'todo-item'
     paragrph.textContent = todo.task;
     paragrph.style.display = 'inline-block'
     paragrph.style.marginLeft = '15px';
@@ -205,7 +206,7 @@ class TodoLink {
       <a href="#" id="completed">completed</a>`;
 
     // Displaying nav for media query
-    var displayNav = window.matchMedia("(min-width: 1024px)");
+    const displayNav = window.matchMedia("(min-width: 1024px)");
     if(displayNav.matches) {
       divElem.insertBefore(nav, paragrph2);
     }else {
@@ -294,6 +295,15 @@ const showUncompleted = () => {
   const numOfUncompleted = todosListCopy.filter(todo => todo.completed === false);
   if(!numOfUncompleted.length) {
     pElem.style.display = 'none';
+    const nav = document.querySelector('.nav')
+    const displayNav = window.matchMedia("(min-width: 1024px)");
+    if(displayNav.matches) {
+      nav.style.justifyContent = 'flex-start';
+      nav.style.marginLeft = '5px';
+    }else {
+      nav.style.justifyContent = 'center';
+      nav.style.marginRight = '0px';
+    }
   }else {
     pElem.style.display = 'block';
     itemsText.textContent = (numOfUncompleted.length === 1) ?
@@ -307,6 +317,15 @@ const hideClearCompleted = () => {
   const numOfCompleted = todosListCopy.filter(todo => todo.completed === true);
   if(!numOfCompleted.length) {
     clearCompletedBtn.style.display = 'none'; 
+    const nav = document.querySelector('.nav')
+    const displayNav = window.matchMedia("(min-width: 1024px)");
+    if(displayNav.matches) {
+      nav.style.justifyContent = 'flex-end';
+      nav.style.marginRight = '5px';
+    }else {
+      nav.style.justifyContent = 'center';
+      nav.style.marginRight = '0px';
+    }
   }else {
     clearCompletedBtn.style.display = 'block';
   }
