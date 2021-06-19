@@ -29,6 +29,7 @@ body {
   text-align: center;
   width: 100%;
   font-family: var(--globalFont);
+  font-size: var(--fontSize);
 }
 
 header {
@@ -52,7 +53,8 @@ header {
   letter-spacing: 5px;
   height: 50px;
   margin-top: 20px;
-  margin-bottom: 30px;
+  width: 40%;
+  text-align: left;
   margin-bottom: 30px;
   text-transform: uppercase;
 }
@@ -170,7 +172,7 @@ input[type="text"]::placeholder {
 .list-item {
   border-bottom: 1px solid var(--darkGrayishBlue);
   margin: 5px 0;
-  padding: 10px  15px;
+  padding: 10px  20px;
   font-weight: 700;
   position: relative;
 }
@@ -232,7 +234,7 @@ label::after {
   content: "";
   top: -1px;
   left: -12px;
-  margin-right: 5px;
+  margin-right: 8px;
   position: absolute;
   width: 1.5em;
   -webkit-transform: scale(1) rotate(0);
@@ -269,6 +271,7 @@ label::after {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding: 3px 5px;
 }
 
 .item {
@@ -311,6 +314,7 @@ label::after {
   color: var(--veryDarkGrayishBlue);
   padding: 10px;
   position: absolute;
+  right: 2px;
   width: 100%;
 }
 
@@ -324,6 +328,7 @@ label::after {
   padding: 10px;
   position: absolute;
   width: 100%;
+  right: 2px;
 }
 
 .nav a {
@@ -351,7 +356,6 @@ label::after {
   header {
     background-image: url('./images/bg-desktop-light.jpg');
     justify-content: space-around;
-    height: 225px;
   }
   
   .darkmode-header-bg-img {
@@ -406,25 +410,108 @@ label::after {
   }
 } 
 
+@media only screen and (min-width: 1024px) and (max-width: 1039px) {
+  header {
+    justify-content: space-around;
+    background-size: cover;
+    height: 225px;
+  }
+  #h01 {
+    width: 40%;
+    text-align: left;
+  }
+
+  .header-icon {
+    /* width: 40%; */
+  }
+
+  .wrapper {
+    margin: 0 auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 70%;
+  }
+
+  #form {
+    right: 15%;
+    width: 70%;
+  }
+
+  .todocard-div {
+    top: 170px;
+    right: 15%;
+    width: 70%;
+    font-size: var(--fontSize);
+  }
+  
+  .todocard-div-darkmode {
+    right: 15%;
+    width: 70%;
+    font-size: var(--fontSize);
+  }
+
+  label > .todo-item {
+    margin-top: 2px;
+    margin-left: 25px !important;
+  }
+  
+  .inner-todocard-div p {
+    font-size: var(--fontSize);
+  } 
+
+  .nav {
+    border-radius: none;
+    box-shadow: none;
+    position: static;
+    padding: 5px 0;
+    width: 50%;
+  }
+
+  .item {
+    width: 20%;
+  }
+  
+  .nav-darkmode {
+    border-radius: 5px;
+    box-shadow: none;
+    position: static;
+    width: 50%;
+  }
+  
+  .nav a {
+    margin: 0 5px 5px;
+    font-size: var(--fontSize);
+  }
+  
+}
+
 /* Media Queries For Desktop */
-@media only screen and (min-width: 1024px) {
+@media only screen and  (min-width: 1440px) {
   header {
     background-image: url('./images/bg-desktop-light.jpg');
     justify-content: space-evenly;
+    overflow: hidden;
+    background-size: cover;
+    height: 225px;
   }
   
   .darkmode-header-bg-img {
     background-image: url('./images/bg-desktop-dark.jpg');
   }  
-
+  
   .header-icon {
-    background-image: url("./images/icon-moon.svg"); 
+    background-image: url("./images/icon-moon.svg");     
   }
-
+  
   .bg-image-darkmode {
     background-image: url("./images/icon-sun.svg"); 
   }
-
+  
+  #h01 {
+    font-size: 3rem;
+    width: 10%;
+  }
+  
   .wrapper {
     margin-left: 25px;
     margin-right: 25px;
@@ -438,15 +525,30 @@ label::after {
     width: 40%;
   }
 
+  .inputbar {
+    padding: 15px 0;
+  }
+
+  label > .todo-item {
+    margin-top: 2px;
+    margin-left: 25px !important;
+  }
+
+  input[type="text"]::placeholder {
+    font-size: 18px;
+  }
+
   .todocard-div {
     top: 170px;
     right: 30%;
     width: 40%;
+    font-size: var(--fontSize);
   }
   
   .todocard-div-darkmode {
     right: 30%;
     width: 40%;
+    font-size: var(--fontSize);
   }
     
   .inner-todocard-div {
@@ -465,6 +567,7 @@ label::after {
     margin-left: 5px;
     margin-right: 5px;
     padding: 5px 0;
+    font-size: var(--fontSize);
   }
   
   .nav {
@@ -472,7 +575,7 @@ label::after {
     box-shadow: none;
     position: static;
     padding: 5px 0;
-    width: 40%;
+    width: 50%;
   }
 
   .item {
@@ -483,11 +586,16 @@ label::after {
     border-radius: 5px;
     box-shadow: none;
     position: static;
-    width: 40%;
+    width: 50%;
   }
   
   .nav a {
     margin: 0 5px 5px;
+    font-size: var(--fontSize);
   }
-   
+
+  .pg-footer {
+    font-size: 18px;
+  }   
 }
+
