@@ -15,6 +15,8 @@
   --lightGrayishBlue: hsl(234, 39%, 85%);
   --darkGrayishBlue: hsl(234, 11%, 52%);
   --veryDarkGrayishBlue: hsl(233, 14%, 35%);
+  --background: linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+
 
   /* Fonts */
   --globalFont: "Josefin San", sans-serif;
@@ -239,6 +241,10 @@ label::after {
         transform: scale(1) rotate(0);
 }
 
+label::after:focus {
+  border: 1px solid var(--background);
+}
+
 .delete-btn-light {
   /* background-color: var(--veryLightGray); */
   background-color: inherit;
@@ -288,12 +294,12 @@ label::after {
 #clear-completed {
   text-decoration: none;
   color: var(--veryDarkGrayishBlue);
+  opacity: 0.7;
 }
 
 #clear-completed:hover {
-  --lightGrayishBlue: var(--veryLightGrayishBlue);
   text-decoration: none;
-  color:  var(--brightBlue);
+  opacity: 1;
 }
 
 .completed {
@@ -326,17 +332,29 @@ label::after {
   width: 100%;
 }
 
+.nav-darkmode a:hover {
+  opacity: 1;
+
+  /* change color */
+  /* color: var(--lightGrayishBlue) */
+}
+
 .nav a {
-  color: var(--lightGray);
+  color: var(--veryDarkGrayishBlue);
   font-weight: 700;
   margin: 5px;
   text-decoration: none;
   text-transform: capitalize;
+  opacity: 0.7;
 }
 
 .nav a:hover {
-  color: var(--brightBlue);
   text-decoration: none;
+  opacity: 1;
+}
+
+nav a:visited {
+  color: var(--brightBlue);
 }
 
 .pg-footer {
@@ -411,6 +429,7 @@ label::after {
   header {
     background-image: url('./images/bg-desktop-light.jpg');
     justify-content: space-evenly;
+    height: 230px;
   }
   
   .darkmode-header-bg-img {
