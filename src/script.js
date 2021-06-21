@@ -352,11 +352,6 @@ const toggleBgMode = (e) => {
       (clearCompleted.style === 'hsl(233, 14%, 35%)') ? 
         'hsl(233, 11%, 84%)': 
         'hsl(233, 14%, 35%)';
-  // Toggle checkboxes class
-  // const checkboxes = document.querySelectorAll('.checkbox-round-lightmode');
-  // for(let i = 0; i < checkboxes.length; i++) {
-    // checkboxes[i].classList.toggle('checkbox-round-darkmode');
-  // }
 
   const innerDiv = document.querySelector('.inner-todocard-div');
   innerDiv.classList.toggle('inner-todocard-div-darkmode');
