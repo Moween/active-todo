@@ -365,13 +365,6 @@ const toggleBgMode = (e) => {
   divContainer.classList.toggle('todocard-div-darkmode');
 
 
-  const clearCompleted = document.getElementById('clear-completed')
-  if(clearCompleted) 
-    clearCompleted.style = 
-      (clearCompleted.style === 'hsl(233, 14%, 35%)') ? 
-        'hsl(233, 11%, 84%)': 
-        'hsl(233, 14%, 35%)';
-
   const innerDiv = document.querySelector('.inner-todocard-div');
   innerDiv.classList.toggle('inner-todocard-div-darkmode');
 
@@ -391,6 +384,12 @@ const toggleBgMode = (e) => {
   const nav = document.querySelector('.nav');
   if(nav)
     nav.classList.toggle('nav-darkmode'); 
+
+  const navlinks = document.querySelectorAll('a');
+  if(navlinks)
+    for(let i = 0; i < navlinks.length; i++) {
+      navlinks[i].classList.toggle('links-darkmode');
+    }
   
 }
 
@@ -399,4 +398,3 @@ displayTodo(todosListCopy);
 bgColorIcon.addEventListener('click', toggleBgMode);
 taskInput.addEventListener('click', clearInput);
 taskInput.addEventListener('change', handleSubmitTodos);
-
