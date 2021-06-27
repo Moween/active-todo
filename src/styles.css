@@ -39,13 +39,16 @@ header {
   height: 200px;
   padding: 10px 20px;
   width: 100%;
-  display: flex !important;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .darkmode-header-bg-img {
   background-image: url('./images/bg-mobile-dark.jpg');
+}
+
+.header-div {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #h01 {
@@ -262,7 +265,6 @@ label::after:focus {
 }
 
 .delete-btn-dark {
-  /* background-color: var(--veryDarkDesaturatedBlue); */
   background-color: inherit;
   color: var(--lightGrayishBlue);
   border: none !important;
@@ -290,14 +292,12 @@ label::after:focus {
   margin-right: 15px;
   padding: 5px 0;
   text-transform:  capitalize;
-  color: var(--veryDarkGrayishBlue);
   font-weight: 700;
 }
 
 #clear-completed {
   text-decoration: none;
-  color: var(--veryDarkGrayishBlue);
-  opacity: 0.7;
+  color: var(--darkGrayishBlue);
 }
 
 #clear-completed:hover {
@@ -312,12 +312,11 @@ label::after:focus {
 
 .nav {
   /* background-color: hsl(0, 0%, 98%); */
-  background-color: inherit;
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   display: flex;
   justify-content: center;
-  color: var(--veryDarkGrayishBlue);
+  color: var(--darkGrayishBlue);
   padding: 10px;
   position: absolute;
   right: 2px;
@@ -325,11 +324,11 @@ label::after:focus {
 }
 
 .nav-darkmode {
-  /* background-color: var(--veryDarkDesaturatedBlue); */
-  background-color: inherit;
+  background-color: var(--veryDarkDesaturatedBlue);
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   display: flex;
+  color: var(--lightGrayishBlue);
   justify-content: center;
   padding: 10px;
   position: absolute;
@@ -339,18 +338,14 @@ label::after:focus {
 
 .nav-darkmode a:hover {
   opacity: 1;
-
-  /* change color */
-  /* color: var(--lightGrayishBlue) */
 }
 
 .nav a {
-  color: var(--veryDarkGrayishBlue);
+  color: var(--darkGrayishBlue);
   font-weight: 700;
   margin: 5px;
   text-decoration: none;
   text-transform: capitalize;
-  opacity: 0.7;
 }
 
 .nav a:hover {
@@ -362,6 +357,10 @@ nav a:visited {
   color: var(--brightBlue);
 }
 
+.links-darkmode {
+  color: var(--lightGrayishBlue) !important;
+}
+
 .pg-footer {
   bottom: 0;
   position: absolute;
@@ -370,10 +369,10 @@ nav a:visited {
 }
 
 
-@media only screen and (min-width: 376px) and (max-width: 786px) {
+@media only screen and (min-width: 376px) {
   header {
     background-image: url('./images/bg-desktop-light.jpg');
-    justify-content: space-around;
+    justify-content: space-between;
   }
   
   .darkmode-header-bg-img {
@@ -387,7 +386,7 @@ nav a:visited {
     margin-bottom: 30px;
     align-self: flex-start;
   }
-  
+
   .header-icon {
     align-self: flex-start;
     background-image: url("./images/icon-moon.svg"); 
@@ -399,6 +398,13 @@ nav a:visited {
   .bg-image-darkmode {
     background-image: url("./images/icon-sun.svg"); 
   }
+}
+
+@media only screen and (min-width: 768px) {
+  .header-div {
+    width: 70%;
+    margin: 0 auto;
+  }  
 
   .wrapper {
     margin: 0 auto;
@@ -426,125 +432,36 @@ nav a:visited {
   .item {
     width: 30%;
   }
-} 
-
-@media only screen and (min-width: 1024px) and (max-width: 1039px) {
-  header {
-    justify-content: space-around;
-    background-size: cover;
-    height: 225px;
-  }
-  #h01 {
-    width: 40%;
-    text-align: left;
-  }
-
-  .header-icon {
-    /* width: 40%; */
-  }
-
-  .wrapper {
-    margin: 0 auto;
-    padding-left: 30px;
-    padding-right: 30px;
-    width: 70%;
-  }
-
-  #form {
-    right: 15%;
-    width: 70%;
-  }
-
-  .todocard-div {
-    top: 170px;
-    right: 15%;
-    width: 70%;
-    font-size: var(--fontSize);
-  }
-  
-  .todocard-div-darkmode {
-    right: 15%;
-    width: 70%;
-    font-size: var(--fontSize);
-  }
-
-  label > .todo-item {
-    margin-top: 2px;
-    margin-left: 25px !important;
-  }
-  
-  .inner-todocard-div p {
-    font-size: var(--fontSize);
-  } 
-
-  .nav {
-    border-radius: none;
-    box-shadow: none;
-    position: static;
-    padding: 5px 0;
-    width: 50%;
-  }
-
-  .item {
-    width: 20%;
-  }
-  
-  .nav-darkmode {
-    border-radius: 5px;
-    box-shadow: none;
-    position: static;
-    width: 50%;
-  }
-  
-  .nav a {
-    margin: 0 5px 5px;
-    font-size: var(--fontSize);
-  }
-  
 }
 
-/* Media Queries For Desktop */
-@media only screen and  (min-width: 1440px) {
+@media only screen and (min-width: 1039px) {
   header {
-    background-image: url('./images/bg-desktop-light.jpg');
-    justify-content: space-evenly;
-<<<<<<< HEAD
+    justify-content: space-around;
     height: 230px;
-=======
-    overflow: hidden;
-    background-size: cover;
-    height: 225px;
->>>>>>> d0f6648c963dc90e48b6d2e7016f5a9253ffd3de
   }
-  
-  .darkmode-header-bg-img {
-    background-image: url('./images/bg-desktop-dark.jpg');
-  }  
-  
-  .header-icon {
-    background-image: url("./images/icon-moon.svg");     
+
+  .header-div {
+    width: 50%;
+    margin: 0 auto;
   }
-  
-  .bg-image-darkmode {
-    background-image: url("./images/icon-sun.svg"); 
-  }
-  
+
   #h01 {
-    font-size: 3rem;
-    width: 10%;
+    margin-top: 30px;
+    width: 20%;
   }
-  
+
   .wrapper {
-    margin-left: 25px;
-    margin-right: 25px;
+    margin-left: auto;
+    margin-right: auto;
     padding-left: 25px;
     padding-right: 25px;
-    width: 40%;
+    width: 50%;
   }
 
   #form {
-    right: 30%;
-    width: 40%;
+    top: 120px;
+    right: 25%;
+    width: 50%;
   }
 
   .inputbar {
@@ -561,15 +478,16 @@ nav a:visited {
   }
 
   .todocard-div {
-    top: 170px;
-    right: 30%;
-    width: 40%;
+    top: 200px;
+    right: 25%;
+    width: 50%;
     font-size: var(--fontSize);
   }
   
   .todocard-div-darkmode {
-    right: 30%;
-    width: 40%;
+    top: 200px;
+    right: 25%;
+    width: 50%;
     font-size: var(--fontSize);
   }
     
@@ -620,4 +538,3 @@ nav a:visited {
     font-size: 18px;
   }   
 }
-
