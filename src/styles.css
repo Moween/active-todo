@@ -253,26 +253,28 @@ label::after:focus {
 .delete-btn-light {
   /* background-color: var(--veryLightGray); */
   background-color: inherit;
+  background-image: url('./images/icon-cross.svg')!important;
+  background-size: contain;
+  background-repeat: no-repeat;
   border: none !important;
   outline: none !important;
   position: absolute;
-  right: 5px;
-  top: 10px;
-}
-
-.btn > image {
-  display: block;
+  right: 15px;
+  top: 22px;
+  height: 15px;
 }
 
 .delete-btn-dark {
   background-color: inherit;
+  background-image: url('./images/icon-cross.svg');
   color: var(--lightGrayishBlue);
   border: none !important;
   outline: none !important;
   font-weight: 700;
   position: absolute;
-  right: 5px;
-  top: 10px;
+  right: 15px;
+  top: 22px;
+  height: 15px;
 }
 
 .inner-todocard-div {
