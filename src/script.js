@@ -96,13 +96,8 @@ class CreateTodo {
     }
 
     // Delete Button
-    const deletebtn = document.createElement('button');
-    deletebtn.type = "button";
-    deletebtn.innerHTML = `
-      <img data-id='${todo.id}' style="width:13px" 
-        src="./images/icon-cross.svg" 
-        alt="delete-icon" 
-      />`;
+    const deletebtn = document.createElement('div');
+    deletebtn.setAttribute('data-id', todo.id);
     deletebtn.classList = 'btn btn-sm delete-btn-light';
     deletebtn.onclick = this.handleDeleteItem;
     this.li.append(deletebtn);
