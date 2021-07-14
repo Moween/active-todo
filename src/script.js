@@ -345,7 +345,7 @@ const toggleBgMode = (e) => {
 
   // Change bg-header-icon  
   if(e.target.className === 'header-icon') {
-    e.target.className = 'bg-image-darkmode';
+    e.target.className = 'header-icon-darkmode';
   }else {
     e.target.className = 'header-icon';
   }

@@ -78,7 +78,7 @@ header {
   width: 20px;
 }
 
-.bg-image-darkmode {
+.header-icon-darkmode {
   background-image: url("./images/icon-sun.svg"); 
   background-size: contain;
   background-repeat: no-repeat;
