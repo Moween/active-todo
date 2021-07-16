@@ -55,7 +55,7 @@ const handleSubmitTodos = (e) =>  {
   todos.push({ task, id, completed } = myTodo); 
   // Update the global todosArr (todosCopy)whuch is a copy of local storage data
   todosListCopy = [...todos];
-  // Rest local storage
+  // Reset local storage
   localStorage.setItem('todosList', JSON.stringify(todos));
   displayTodo(todosListCopy);
 }
